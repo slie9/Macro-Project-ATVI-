@@ -22,14 +22,15 @@ Some research we did was look up if Blizzard-Activision had any reason of why th
 
 ## Methods
 
-We decided to use R and RStudio for this project as we found it to be beneficial with our data analysis. ![Chart Description automatically generated](media/cc54f2115fdb788ec9ee26f8a8199979.png)Most of our group is comfortable enough with R to use. We did not want to just use Excel as we thought R could provide us with better information about our dataset.
+We decided to use R and RStudio for this project as we found it to be beneficial with our data analysis. Most of our group is comfortable enough with R to use. We did not want to just use Excel as we thought R could provide us with better information about our dataset.
 
 ## Results
 
-![Chart Description automatically generated](media/e115afd11106bcce2099292999012a00.png)Anyone interested in stocks or data analysis could benefit from our project. Being curious was the first step in starting this project. At the end of this project, we had found interesting data and were able to put it together with the real-world issues. Our linear regression model of monthly close prices vs the time index shows that the coefficient is statistically significant. We had also found the peak closing price, lowest recorded closing price, and the average. Which are, in order: Min: 68.22, Mean: 68.22, and Max: 68.22.
+Anyone interested in stocks or data analysis could benefit from our project. Being curious was the first step in starting this project. At the end of this project, we had found interesting data and were able to put it together with the real-world issues. Our linear regression model of monthly close prices vs the time index shows that the coefficient is statistically significant. We had also found the peak closing price, lowest recorded closing price, and the average. Which are, in order: Min: 68.22, Mean: 68.22, and Max: 68.22.
 
+<img src = "Images/res_fitted.png"> 
 Figure 1 is the residuals vs fitted plot of the linear regression. Linearity is violated.
-
+<img src = "Images/moving_avg.png"> 
 Figure 2: The price and moving averages for all days since 2017, we can see the dip where ATVI plummeted in 2019 and where it starts to build back up.
 
 ## References
