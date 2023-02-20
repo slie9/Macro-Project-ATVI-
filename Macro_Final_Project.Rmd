@@ -1,0 +1,78 @@
+---
+title: "Macro Project: Blizzard Stock"
+output:
+  prettydoc::html_pretty:
+    theme: lumen
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(prettydoc)
+library(quantmod)
+library(scales)
+
+```
+
+This data consists of opens, closes, volumes, adjusted closes, from 2017 - 2022. Need to adjust data to work for regression as linear regression cannot directly take time-series data.
+```{r}
+ATVI_Data <- read.csv("BlizzardStocks_5Y.csv")
+ATVI_Data <- ATVI_Data %>% mutate(id = row_number())
+ATVI_Data$Date <- as.Date(ATVI_Data$Date)
+
+glimpse(ATVI_Data)
+summary(ATVI_Data)
+```
+
+This data starts at 2017-03-31 and ends 2022-03-30
+```{r}
+min(ATVI_Data$Date)
+max(ATVI_Data$Date)
+```
+
+
+
+# Linear Regression
+Looking at monthly close prices vs the time index
+```{r}
+ATVI_Reg <- lm(ATVI_Data$Close ~ ATVI_Data$id)
+
+summary(ATVI_Reg)
+p1 <- plot(ATVI_Reg)
+```
+
+# Visualize linear regression
+```{r}
+p2 <- ggplot(data=ATVI_Data, mapping = aes(id, Close))+
+  geom_point(color = "red") +
+  geom_smooth(method = "lm", color = "black")+
+  labs(x="Monthly Time Index starting at 2017-03-31", y = "ATVI Close")
+
+plot(p2)
+```
+
+# Two moving averages for the stock price, 10 day window and 30 days
+```{r}
+ATVI_mm <- subset(ATVI_Data, index(ATVI_Data) >= "2017-03-31")
+
+ATVI_mm10 <- rollmean(ATVI_mm[,6], 10, fill = list(NA, NULL, NA), align = "right")
+ATVI_mm30 <- rollmean(ATVI_mm[,6], 30, fill = list(NA, NULL, NA), align = "right")
+
+ATVI_mm$mm10 <- coredata(ATVI_mm10)
+ATVI_mm$mm30 <- coredata(ATVI_mm30)
+```
+
+
+
+# Plotting the price and moving averages for all days since 2017
+```{r}
+ATVI_mm %>% 
+  ggplot(aes(x = Date)) +
+  geom_line(aes(y = ATVI_mm[,6], color = "ATVI")) + ggtitle("ATVI prices ") +
+  geom_line(aes(y = mm10, color = "MM10")) +
+  geom_line(aes(y = mm30, color = "MM30")) + xlab("Date") + ylab("Price")
+```
+
+
