@@ -1,6 +1,6 @@
 | **Activision Blizzard (ATVI)**   **5 Years of Data**      |
 |-----------------------------------------------------------|
-|   **Sydney Lieske** |
+|   **Sydney Lieske** | - - 
 
 ## Abstract
 
